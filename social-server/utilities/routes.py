@@ -1,7 +1,7 @@
-from api.login import login
-from api.register import register
+from api.users import login, logout, register
 
 
 def add_routes(app):
-    app.register_blueprint(login, url_prefix='/login')
-    app.register_blueprint(register, url_prefix='/register')
+    app.register_blueprint(login, url_prefix='/api/login')
+    app.register_blueprint(logout, url_prefix='/api/logout')
+    app.register_blueprint(register, url_prefix='/api/register')
