@@ -1,4 +1,11 @@
 import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Link,
+} from "react-router-dom";
 
 import NavBar from "./nav/navbar";
 
@@ -8,9 +15,13 @@ class LayOut extends Component {
   render() {
     return (
       <div className="container">
-        <div className="row">
-          <NavBar />
-        </div>
+        <NavBar></NavBar>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+          <code id="cookies" />
+        </Router>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,46 +7,37 @@ import {
   Navigate,
   Link
 } from 'react-router-dom';
-import axios from "axios";
 
-import LayOut from "./components/layout";
+import Home from "./components/home";
+import Register from "./components/users/register";
+import Delete from "./components/users/delete";
 import Login from './components/users/login';
-
+import LogOut from "./components/users/logout";
 
 class App extends Component {
   state = {
-    data: null,
-    error_msg: null
-
+    auth: false
   };
-  
- 
-  componentDidMount() {
-    axios.get(`http://localhost:5000/api`)
-      .then(res => {
-        const data = res.data;
-        this.setState({ data });
-      }).catch(err => {
-        console.log(err.response.data)
-        const error = err.response.data.msg;
-       this.setState({ error })
 
-      })
-  }
 
   render() {
     return (
       <Router>
-         <div className="App">
+        <div className="App">
+    
+          <Routes>
+          <Route path="/" element={<Home/>} />
+            <Route path="/register" element={<Register />} /> 
+            <Route path="/delete" element={<Delete />} /> 
+            <Route path="/login" element={<Login />} /> 
+            <Route path="/logout" element={<LogOut />} /> 
+            
+          </Routes>
+            <code id="cookies"/>
+  
+        </div>
        
-          
-      </div>
-        <Routes>
-          <Route path="/" element={this.state.error === "login_error" ? <Navigate to="/login" /> : LayOut} />
-          <Route path="/login" element={<Login/>} />
 
-       
-</Routes>
     </Router>
     );
   }

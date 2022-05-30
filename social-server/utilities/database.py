@@ -1,23 +1,25 @@
-import sqlite3
+def create(db, model, **columns):
+    new = model(**columns)
+    db.session.add(new)
+    db.session.commit()
+    return new
 
 
-def query_to_dict(titles, rows):
-    res = []
-    for row in rows:
-        d = {}
-        for item in range(len(row)):
-            d[titles[item][0]] = row[item]
-        res.append(d)
-    return res
+def update(db, objects, **columns):
+
+    for k, v in columns.items():
+        for obj in objects:
+            setattr(obj, k, v)
+    db.session.commit()
+    return obj
 
 
-def execute_query(query, *args):
-    conn = sqlite3.connect('db/server.db')
-    cur = conn.cursor()
-    cur.execute(query, args)
-    rows = cur.fetchall()
-    titles = cur.description
-    res = query_to_dict(titles, rows)
-    conn.commit()
-    conn.close()
-    return res
+def delete(db, model, **columns):
+    res = model.query.filter_by(**columns).all()
+    for obj in res:
+        db.session.delete(obj)
+    db.session.commit()
+
+
+def query(db, model, **columns):
+    return model.query.filter_by(**columns).all()

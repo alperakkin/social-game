@@ -1,24 +1,22 @@
-from flask import Flask, session
+from flask import Flask
 from flask_cors import CORS
-from utilities.sessions import init_session, login_required
-from utilities.routes import add_routes
-from utilities.database import execute_query
-from utilities.responses import response_msg
-
-app = Flask(__name__)
-CORS(app)
-add_routes(app)
+from flask_sqlalchemy import SQLAlchemy
+from config import SECRET_KEY, DB_URI
 
 
-@app.route("/api")
-@login_required
-def index():
-    user = execute_query("SELECT * FROM users WHERE id=?",
-                         session.get('user_id'))[0]
-    user.pop('password')
-    return response_msg(user)
+db = SQLAlchemy()
 
 
-if __name__ == "__main__":
-    init_session(app)
-    app.run()
+def create_app():
+    from utilities.routes import add_routes
+    app = Flask(__name__, instance_relative_config=False)
+    app.config["SECRET_KEY"] = SECRET_KEY
+    app.config["SQLALCHEMY_DATABASE_URI"] = DB_URI
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    CORS(app)
+    add_routes(app)
+    db.init_app(app)
+
+    with app.app_context():
+        db.create_all()
+        return app

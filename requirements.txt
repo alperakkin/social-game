@@ -1,3 +1,6 @@
 flask
 flask_session
 flask_cors
+pyjwt
+Flask-SQLAlchemy
+gunicorn
