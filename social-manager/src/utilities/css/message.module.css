@@ -1,0 +1,11 @@
+
+
+.sendComment:hover {
+    color: rgb(30, 149, 218);
+}
+.commentsSection {
+    margin-top: 10px;
+    margin-left: 5%;
+    padding-left: inherit;
+    justify-content:baseline;
+}

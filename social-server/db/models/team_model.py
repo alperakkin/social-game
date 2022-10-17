@@ -23,6 +23,5 @@ class TeamMembers(db.Model):
     entry_date = db.Column(db.DateTime(), default=datetime.utcnow)
     is_approved = db.Column(db.Boolean)
 
-
-
-
+    def __repr__(self):
+        return '<Team Members %r>' % self.teamname

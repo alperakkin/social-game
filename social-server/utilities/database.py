@@ -1,4 +1,7 @@
+from datetime import datetime
+
 def create(db, model, **columns):
+    columns["created"] = datetime.utcnow()
     new = model(**columns)
     db.session.add(new)
     db.session.commit()
@@ -16,9 +19,12 @@ def update(db, objects, **columns):
 
 def delete(db, model, **columns):
     res = model.query.filter_by(**columns).all()
+    if not res:
+        return False
     for obj in res:
         db.session.delete(obj)
     db.session.commit()
+    return True
 
 
 def query(db, model, **columns):

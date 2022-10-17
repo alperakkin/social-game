@@ -80,12 +80,16 @@ def team_list_method():
     user = database.query(db, Users, username=username)[0]
     teams = database.query(db, TeamMembers, user=user, is_approved=True)
 
-    team_data = {}
+    team_data = []
     for item in teams:
-        team_data[item.team.teamname] = {}
-        team_data[item.team.teamname]['score'] = item.team.teamscore
-        results = database.query(db, TeamMembers,
-                                 team=item.team, is_approved=True)
-        team_data[item.team.teamname]['users'] = [
-                        result.user.username for result in results]
+        team_members = database.query(db, TeamMembers,
+                                      team=item.team, is_approved=True)
+        team_data.append(
+            {'team': item.team.teamname,
+             'score': item.team.teamscore,
+             'team_members': [
+                 team_member.user.username for
+                 team_member in team_members]
+             })
+
     return response_msg(team_data)

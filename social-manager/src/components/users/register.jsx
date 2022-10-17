@@ -29,11 +29,10 @@ class Register extends Component {
         setCookie("authToken", `Bearer ${resp.data.msg["token"]}`);
         setCookie("username", username);
         window.location = "/";
-        console.log(resp);
       })
       .catch((err) => {
         setCookie("username", null);
-        console.log(err);
+
         document.getElementById("alert").innerHTML = err.response.data["msg"];
         this.setState({
           display: "alert alert-warning d-flex align-items-center d-block",

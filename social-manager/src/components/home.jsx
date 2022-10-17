@@ -8,16 +8,13 @@ class Home extends Component {
   };
 
   async componentDidMount() {
-    let data = await validateAuth("");
+    let data = await validateAuth("/");
+
     this.setState({ auth: data.state, data: data });
   }
 
   render() {
-    return (
-      <div className="container">
-        <div className="row">{this.state.auth ? <LayOut /> : <p>error</p>}</div>
-      </div>
-    );
+    return <div>{this.state.auth ? <LayOut /> : <p>error</p>}</div>;
   }
 }
 

@@ -18,7 +18,10 @@ class App extends Component {
   state = {
     auth: false
   };
-
+ 
+  styles = {
+    
+  }
 
   render() {
     return (
@@ -31,6 +34,7 @@ class App extends Component {
             <Route path="/delete" element={<Delete />} /> 
             <Route path="/login" element={<Login />} /> 
             <Route path="/logout" element={<LogOut />} /> 
+          
             
           </Routes>
             <code id="cookies"/>
