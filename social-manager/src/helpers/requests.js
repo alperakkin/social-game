@@ -18,6 +18,9 @@ class RequestHelper {
              
                 setCookie("authToken", "Bearer " + resp.data.msg["token"]);
                 setCookie("username", username);
+                localStorage.clear()
+                localStorage.setItem(`profilePicture_${username}`, resp.data.msg["picture"]);
+
                 window.location = "/";
                 return {status: true, data: resp.data}
             })
@@ -103,7 +106,6 @@ class RequestHelper {
             return { state: true,data: resp.data };
         })
         .catch((err) => {
-            window.location = "/login";
             return { state: false,data: err.response.data["msg"]};
         });
   }

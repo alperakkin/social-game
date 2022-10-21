@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 
 import { logOutProcess } from "../../helpers/requests";
 class LogOut extends Component {

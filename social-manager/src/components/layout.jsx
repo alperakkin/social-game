@@ -1,14 +1,10 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-  Link,
-} from "react-router-dom";
 import LeftMenu from "./nav/leftmenu";
 import NavBar from "./nav/navbar";
 import Posts from "./posts/main";
+import AllTeams from "./teams/all-teams";
+import CreateTeam from "./teams/create-team";
+import MyTeams from "./teams/my-teams";
 
 class LayOut extends Component {
   state = {};
@@ -16,11 +12,20 @@ class LayOut extends Component {
     marginTop: "100px",
   };
 
-  lefMenustyle = {
+  keys = {
+    "/": Posts,
+    "/all-teams": AllTeams,
+    "/create-team": CreateTeam,
+    "/my-teams": MyTeams,
+  };
+
+  leftMenustyle = {
     marginTop: "2%",
     height: "400px",
   };
+
   render() {
+    const DynamicElement = this.keys[window.location.pathname];
     return (
       <div className="container">
         <div className="row">
@@ -29,13 +34,13 @@ class LayOut extends Component {
         <div className="row d-flex" style={this.postStyle}>
           <div
             className="col-md-3 d-flex justify-content-start"
-            style={this.lefMenustyle}
+            style={this.leftMenustyle}
           >
             <LeftMenu />
           </div>
-          <div className="col-md-1"></div>
-          <div className="col-md-6 d-flex justify-content-center">
-            <Posts />
+
+          <div className="col-md-9 d-flex justify-content-center">
+            <DynamicElement />
           </div>
         </div>
       </div>

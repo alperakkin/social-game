@@ -1,7 +1,5 @@
 
 import logging
-import operator
-
 from flask import Blueprint, request
 
 from utilities.sessions import (token_required, validate_token_by_user)
@@ -9,7 +7,7 @@ from utilities.responses import response_msg
 from utilities import database
 
 from db.models import db
-from db.models.user_model import Users
+from db.models.user_model import Users, Profiles
 from db.models.post_model import Posts
 from db.models.comment_model import Comments
 
@@ -29,7 +27,7 @@ def create_comment_method():
     post = database.query(db, Posts, id=post_id)[0]
     comment = request.json.get('comment')
     if not comment or len(comment) == 0:
-        return response_msg('Please write a comment', 401)
+        return response_msg('Please write a comment', 400)
     database.create(db, Comments, user=user,
                     post=post, comment=comment)
     return response_msg('Interaction Created')
@@ -45,7 +43,9 @@ def get_comment_method():
     return [
         {'id': comment.id,
          'date': comment.created,
-        'name': comment.user.username,
+         'name': comment.user.username,
          'comment': comment.comment,
+         'profilePicture': database.query(db, Profiles,
+                                          user=comment.user)[0].picture
          } for comment in comments
     ]

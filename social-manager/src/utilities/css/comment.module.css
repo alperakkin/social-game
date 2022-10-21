@@ -44,3 +44,12 @@
 
 
 }
+
+.profile {
+  height: 25px;
+  width: 30px;
+  object-fit: contain;
+  -webkit-mask-image: radial-gradient(circle, black 25%, rgba(0, 0, 0, 0) 20%);
+  mask-image: radial-gradient(circle, black 20%, rgba(0, 0, 0, 0) 60%);
+
+}

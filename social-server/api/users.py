@@ -5,7 +5,7 @@ from utilities.sessions import (check_password, hash_password, token_required,
 from utilities.responses import response_msg
 from utilities import database
 from db.models import db
-from db.models.user_model import Users
+from db.models.user_model import Users, Profiles
 
 
 login = Blueprint('login', __name__)
@@ -22,19 +22,21 @@ def login_method():
     password = request.authorization.get('password')
 
     if not all([username, password]):
-        return response_msg('Username or password is empty', 403)
- 
+        return response_msg('Username or password is empty', 401)
+
     res = database.query(db, Users, username=username)
 
     if not res:
-        return response_msg('User not exists', 403)
+        return response_msg('User not exists', 401)
 
     user = res[0]
 
     if len(res) == 1 and check_password(user.password, password):
+        picture = database.query(db, Profiles, user=user)[0].picture
         return response_msg({'token': create_token(current_app,
-                             username)})
-    return response_msg("Login not permitted", 403)
+                             username),
+                             'picture': picture})
+    return response_msg("Login not permitted", 401)
 
 
 @logout.route('/', methods=['POST'])
@@ -59,20 +61,22 @@ def register_method():
     email = request.json.get('email')
     password = request.json.get('password')
     confirmation = request.json.get('confirmation')
+    picture = request.json.get('image')
     if not all([username, email, password, confirmation]):
-        return response_msg('There are empty fields', 403)
+        return response_msg('There are empty fields', 401)
     if password != confirmation:
-        return response_msg('Password Confirmation is incorrect', 403)
+        return response_msg('Password Confirmation is incorrect', 401)
 
     res = database.query(db, Users, username=username)
 
     if res:
-        return response_msg('Username already exists', 403)
-   
+        return response_msg('Username already exists', 401)
+
     database.create(db, Users, username=username, email=email,
                     password=hash_password(password))
 
-    res = database.query(db, Users, username=username)
-    if res:
+    user = database.query(db, Users, username=username)
+    if user:
+        database.create(db, Profiles, user=user[0], picture=picture)
         return response_msg({'token': create_token(current_app, username)})
-    return response_msg('User can not be registered', 403)
+    return response_msg('User can not be registered', 401)

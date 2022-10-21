@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 def create(db, model, **columns):
     columns["created"] = datetime.utcnow()
     new = model(**columns)
@@ -23,6 +24,12 @@ def delete(db, model, **columns):
         return False
     for obj in res:
         db.session.delete(obj)
+    db.session.commit()
+    return True
+
+
+def delete_object(db, obj):
+    db.session.delete(obj)
     db.session.commit()
     return True
 

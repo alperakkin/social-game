@@ -33,6 +33,7 @@ class Posts extends Component {
           date={item.date}
           msg={item.msg}
           team={item.team}
+          profile={item.profilePicture}
         />
       ));
       return items;

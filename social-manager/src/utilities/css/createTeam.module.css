@@ -1,0 +1,13 @@
+.card {
+    height: 30%;
+    width: 100%;
+    margin-top: 10%;
+}
+
+.button {
+   background-color: rgb(186, 215, 204);
+}
+
+.input {
+    margin-top: 20px;
+}

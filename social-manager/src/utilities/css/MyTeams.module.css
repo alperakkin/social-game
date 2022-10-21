@@ -1,0 +1,32 @@
+.card {
+    
+    width: 100%;
+    margin-top: 3%;
+}
+
+.button {
+   font-size: 10px;
+   color:aliceblue;
+   width: 60px;
+}
+
+.failure {
+    background-color: rgb(198, 5, 5);
+  
+   
+}
+.success {
+    background-color: rgb(3, 125, 19);
+
+}
+.input {
+    margin-top: 20px;
+}
+
+.joined{
+    font-size: 12px;
+}
+
+.icon:hover{
+    color: rgb(198, 5, 5);
+}

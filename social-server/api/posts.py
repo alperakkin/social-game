@@ -1,6 +1,5 @@
 
 import logging
-import operator
 
 from flask import Blueprint, request
 
@@ -9,7 +8,7 @@ from utilities.responses import response_msg
 from utilities import database
 
 from db.models import db
-from db.models.user_model import Users
+from db.models.user_model import Users, Profiles
 from db.models.post_model import Posts
 from db.models.team_model import TeamMembers, Teams
 
@@ -41,7 +40,9 @@ def list_posts_method():
                 'name': post.user.username,
                 'msg': post.msg,
                 'img': post.image,
-                'team': post.team.teamname
+                'team': post.team.teamname,
+                'profilePicture': database.query(db, Profiles,
+                                                 user=post.user)[0].picture
             }
             post_list.append(msg)
 
@@ -72,4 +73,4 @@ def delete_post_method():
     status = database.delete(db, Posts, user=user, id=post_id)
     if status:
         return response_msg('Post Deleted')
-    return response_msg('Post can not be deleted', 403)
+    return response_msg('You dont have permission to delete this post', 400)

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getRequest, postRequest } from "../../helpers/requests";
+import { deleteRequest, getRequest, postRequest } from "../../helpers/requests";
 import style from "../../utilities/css/message.module.css";
 import Comment from "./comment";
 const thumbsUpIconEmpty =
@@ -69,6 +69,15 @@ class Message extends Component {
     }
   };
 
+  deletePost = async () => {
+    let res = await deleteRequest(`/posts/delete/?id=${this.props.id}`);
+    if (res.state === true) {
+      window.location = "/";
+    } else {
+      alert(res.data);
+    }
+  };
+
   displayComments = async () => {
     if (this.commentListRef.current.style.display === "block") {
       this.commentListRef.current.style.display = "none";
@@ -88,6 +97,7 @@ class Message extends Component {
           id={item.id}
           date={item.date}
           msg={item.comment}
+          profilePicture={item.profilePicture}
         />
       ));
 
@@ -228,16 +238,32 @@ class Message extends Component {
           <div className="p-2">{this.props.user}</div>
           <div className="p-2">{this.props.date}</div>
 
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="currentColor"
-            className="bi bi-person-lines-fill"
-            style={this.iconStyles}
-          >
-            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
-          </svg>
+          <div className="dropdown dropbottom col-1">
+            <img
+              className={`dropdown-toggle ${style.profile}`}
+              src={this.props.profile}
+              id="dropdownMenuButton2"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              alt=""
+            />
+
+            <ul
+              className="dropdown-menu"
+              aria-labelledby="dropdownMenuButton2"
+              style={{ left: "-40%" }}
+            >
+              <li>
+                <a
+                  className="dropdown-item active"
+                  onClick={this.deletePost}
+                  href="/"
+                >
+                  Delete Post
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div className="card-body pt-0">

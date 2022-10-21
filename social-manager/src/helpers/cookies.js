@@ -9,7 +9,7 @@ class CookieHelper {
           .split('=')[1];
         return val;
         }
-        catch {
+        catch (err) {
           return "null";
         }
     

@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import axios from "axios";
 import { getCookie, setCookie } from "../../helpers/cookies";
 

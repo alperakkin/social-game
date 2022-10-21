@@ -1,0 +1,14 @@
+
+.file {
+  display: none;
+}
+
+.fileIcon {
+    position: absolute;
+    margin-top: 9%;
+    margin-left: 65%;
+}
+
+.fileIcon:hover{
+  color:rgb(11, 90, 64)
+}

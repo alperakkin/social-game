@@ -20,7 +20,7 @@ def check_password(hashed, requested):
 def create_token(app, user):
     token = jwt.encode({
         'user': user,
-        'exp': datetime.utcnow() + timedelta(minutes=SESSION_TIMEOUT)},
+        'exp': datetime.utcnow() + timedelta(seconds=SESSION_TIMEOUT)},
         app.config.get('SECRET_KEY'))
     return token
 
@@ -47,6 +47,6 @@ def token_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not validate_token_by_user():
-            return response_msg('invalidtoken', 401)
+            return response_msg('invalidtoken', 400)
         return f(*args, **kwargs)
     return decorated_function
