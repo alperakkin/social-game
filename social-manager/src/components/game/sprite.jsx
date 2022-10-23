@@ -1,23 +1,26 @@
 class Sprite {
-  constructor(image, imageData, x, y, speed) {
+  constructor(engine, image, data, x, y, speed) {
+    this.engine = engine;
     this.image = image;
-    this.imageData = imageData;
+    this.data = data;
     this.x = x;
     this.y = y;
     this.speed = speed;
     this.index = 0;
     this.animation = [];
   }
+
+  loadData() {}
   createAnimation() {
-    for (let i = 0; i < this.imageData.frames.length; i++) {
-      let pos = this.imageData.frames[i].position;
+    for (let i = 0; i < this.data.frames.length; i++) {
+      let pos = this.data.frames[i].position;
       let img = this.image.get(pos.x, pos.y, pos.w, pos.h);
       this.animation.push(img);
     }
   }
-  show(p5) {
-    p5.image(
-      this.animation[p5.floor(this.index) % this.animation.length],
+  animate() {
+    this.engine.image(
+      this.animation[this.engine.floor(this.index) % this.animation.length],
       this.x,
       this.y,
       150,
