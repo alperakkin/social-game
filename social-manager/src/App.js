@@ -35,7 +35,8 @@ class App extends Component {
             <Route path="/logout" element={<LogOut />} /> 
             <Route path="/all-teams" element={<LayOut />} />
             <Route path="/my-teams" element={<LayOut />} />
-            <Route path="/create-team" element={<LayOut />} /> 
+            <Route path="/create-team" element={<LayOut />} />
+            <Route path="/game" element={<LayOut />} /> 
 
           
             

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getRequest, postRequest } from "../../helpers/requests";
-import style from "../../utilities/css/navbar.module.css";
+import style from "../../resource/css/navbar.module.css";
 class LeftMenu extends Component {
   state = {
     buttonColor: "black",

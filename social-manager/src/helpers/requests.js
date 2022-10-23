@@ -1,12 +1,12 @@
 import axios from "axios";
 import { getCookie, setCookie } from "../helpers/cookies"
-
+import { API_DOMAIN } from "../settings/config"
 class RequestHelper {
     loginRequest(username, password) {
         let basicAuth = "Basic " +  window.btoa(unescape(encodeURIComponent(username + ":" + password)));
         return axios
             .post(
-                "http://localhost:5000/api/login/",
+                `http://${API_DOMAIN}:5000/api/login/`,
                 {},
                 {
                     headers: {
@@ -42,9 +42,9 @@ class RequestHelper {
     
 
     validateAuth(apiUrl) {
-        console.log(`http://localhost:5000/api${apiUrl}`)
+        console.log(`http://${API_DOMAIN}:5000/api${apiUrl}`)
         return axios
-        .get(`http://localhost:5000/api${apiUrl}`, {
+        .get(`http://${API_DOMAIN}:5000/api${apiUrl}`, {
           headers: {
             Authorization: getCookie("authToken"),
           },
@@ -60,26 +60,28 @@ class RequestHelper {
     
 
     getRequest(apiUrl, payLoad) {
-        console.log(`http://localhost:5000/api${apiUrl}`)
+  
+        console.log(`http://${API_DOMAIN}:5000/api${apiUrl}`)
         return axios
-        .get(`http://localhost:5000/api${apiUrl}`, {
+        .get(`http://${API_DOMAIN}:5000/api${apiUrl}`, {
           headers: {
                 Authorization: getCookie("authToken"),
                 "content-type": "application/json"
           },  params:payLoad
         })
-        .then((resp) => {
+            .then((resp) => {
+        
             return { state: true,data: resp.data };
         })
         .catch((err) => {
-          
+     
             return { state: false,data: err.response.data["msg"]};
         });
     }
     postRequest(apiUrl, payLoad) {
-        console.log(`http://localhost:5000/api${apiUrl}`)
+        console.log(`http://${API_DOMAIN}:5000/api${apiUrl}`)
         return axios
-            .post(`http://localhost:5000/api${apiUrl}`, payLoad,{
+            .post(`http://${API_DOMAIN}:5000/api${apiUrl}`, payLoad,{
                 headers: {
                     Authorization: getCookie("authToken"),
                     "content-type": "application/json"
@@ -95,9 +97,9 @@ class RequestHelper {
         });
     }
     deleteRequest(apiUrl) {
-        console.log(`http://localhost:5000/api${apiUrl}`)
+        console.log(`http://${API_DOMAIN}:5000/api${apiUrl}`)
         return axios
-        .delete(`http://localhost:5000/api${apiUrl}`, {
+        .delete(`http://${API_DOMAIN}:5000/api${apiUrl}`, {
           headers: {
             Authorization: getCookie("authToken"),
           },

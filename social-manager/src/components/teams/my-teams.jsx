@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { deleteRequest, getRequest, postRequest } from "../../helpers/requests";
-import style from "../../utilities/css/MyTeams.module.css";
+import style from "../../resource/css/MyTeams.module.css";
 class MyTeams extends Component {
   state = {
     data: null,

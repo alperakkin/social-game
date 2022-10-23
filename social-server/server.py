@@ -17,6 +17,7 @@ def create_app(logger_override=None):
     app.config["SQLALCHEMY_DATABASE_URI"] = DB_URI
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config['CORS_HEADERS'] = 'Content-Type'
+    app.config['DEBUG'] = False
     add_routes(app)
     db.init_app(app)
 

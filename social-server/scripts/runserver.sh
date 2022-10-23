@@ -1,1 +1,1 @@
-gunicorn --workers 4 --bind localhost:5000 wsgi:app --access-logfile - --log-level=$GUNICORN_LOG_LEVEL
+gunicorn --workers 4 --bind 0.0.0.0:5000 wsgi:app --access-logfile - --log-level=$GUNICORN_LOG_LEVEL

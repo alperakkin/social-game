@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import style from "../../utilities/css/comment.module.css";
+import style from "../../resource/css/comment.module.css";
 
 class Comment extends Component {
   state = {};

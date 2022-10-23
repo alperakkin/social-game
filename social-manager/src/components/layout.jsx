@@ -5,6 +5,7 @@ import Posts from "./posts/main";
 import AllTeams from "./teams/all-teams";
 import CreateTeam from "./teams/create-team";
 import MyTeams from "./teams/my-teams";
+import Main from "./game/main";
 
 class LayOut extends Component {
   state = {};
@@ -17,6 +18,7 @@ class LayOut extends Component {
     "/all-teams": AllTeams,
     "/create-team": CreateTeam,
     "/my-teams": MyTeams,
+    "/game": Main,
   };
 
   leftMenustyle = {

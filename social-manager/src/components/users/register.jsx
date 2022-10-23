@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { setCookie } from "../../helpers/cookies";
-import style from "../../utilities/css/register.module.css";
+import style from "../../resource/css/register.module.css";
 class Register extends Component {
   state = {
     display: "alert alert-warning d-flex align-items-center d-none",

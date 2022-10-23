@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { postRequest } from "../../helpers/requests";
 import { getCookie } from "../../helpers/cookies";
-import style from "../../utilities/css/createTeam.module.css";
+import style from "../../resource/css/createTeam.module.css";
 
 class CreateTeam extends Component {
   constructor(props) {

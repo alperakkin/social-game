@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getCookie } from "../../helpers/cookies";
-import style from "../../utilities/css/navbar.module.css";
+import style from "../../resource/css/navbar.module.css";
 class NavBar extends Component {
   state = {
     image: null,
@@ -66,7 +66,7 @@ class NavBar extends Component {
               <span className={`${style.user}`}>
                 Hi <strong>{getCookie("username")}</strong>
               </span>
-              <a className="dropdown-item active" href="/arena">
+              <a className="dropdown-item active" href="/game">
                 Go To Arena
               </a>
             </li>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getRequest, postRequest } from "../../helpers/requests";
-import style from "../../utilities/css/AllTeams.module.css";
+import style from "../../resource/css/AllTeams.module.css";
 
 import { getCookie } from "../../helpers/cookies";
 class AllTeams extends Component {
