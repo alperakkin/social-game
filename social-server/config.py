@@ -1,9 +1,10 @@
 # DOMAIN
-DOMAIN = "192.168.1.4"
+DOMAIN = "0.0.0.0"
 
 
 # MINUTES
-SESSION_TIMEOUT = 1 * 60 * 60
+# For dev purposes, setting at 5 hours
+SESSION_TIMEOUT = 5 * 60 * 60
 
 # JWT TOKEN SECRET
 SECRET_KEY = "9d8c52f7833d9f8124fdc15fa6438620"

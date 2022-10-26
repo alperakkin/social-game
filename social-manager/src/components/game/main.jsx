@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import style from "../../resource/css/game.module.css";
-
-import Engine from "./engine";
+import Engine from "./core/engine";
 class Main extends Component {
   render() {
     return (
