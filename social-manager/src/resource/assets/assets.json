@@ -1,0 +1,13 @@
+{
+  "bunny": {
+    "posx": 10,
+    "posy": 10,
+    "height": 100,
+    "width": 100,
+    "weight": 5,
+    "speed": 0.2,
+    "states": {
+      "dancing": { "path": "bunnyDance" }
+    }
+  }
+}

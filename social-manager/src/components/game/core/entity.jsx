@@ -1,31 +1,28 @@
 import Sprite from "./sprite";
 
 export default class Entity {
-  constructor(engine, pos, size, speed) {
+  constructor(engine, pos, size, speed, animation) {
     this.engine = engine;
-    this.states = [];
     this.speed = speed;
-    this.animations = {};
     this.pos = pos;
     this.size = size;
+    this.animation = animation;
   }
 
-  buildAnimations() {
-    for (let data of this.animationData) {
-      let s = new Sprite(
-        this.engine,
-        data.image,
-        data.json,
-        this.pos,
-        this.speed,
-        this.size
-      );
-      s.createAnimation();
-      this.animations[data.state] = s;
-    }
+  buildAnimation() {
+    let s = new Sprite(
+      this.engine,
+      this.animation.image,
+      this.animation.json,
+      this.pos,
+      this.speed,
+      this.size
+    );
+    s.createAnimation();
+    this.sprite = s;
   }
 
-  animate(state) {
-    this.animations[state].animate();
+  animate() {
+    this.sprite.animate();
   }
 }

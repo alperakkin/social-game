@@ -1,12 +1,30 @@
-// import Bunny from "../elements/bunny";
+import assets from "../../../resource/assets/assets.json";
 let cls;
-let assets = { bunny: null };
 
 Object.entries(assets).forEach(([key, asset]) => {
   import("../elements/" + key)
     .then((ns) => {
       cls = ns.default;
-      assets[key] = cls;
+
+      Object.entries(asset.states).forEach(([animation, obj]) => {
+        obj.object = cls;
+        import("../../../resource/sprites/images/" + obj.path + ".png")
+          .then((ns) => {
+            obj.image = ns.default;
+          })
+          .catch((error) => {
+            // Handle error
+            console.log(error);
+          });
+        import("../../../resource/sprites/json/" + obj.path + ".json")
+          .then((ns) => {
+            obj.data = ns.default;
+          })
+          .catch((error) => {
+            // Handle error
+            console.log(error);
+          });
+      });
     })
     .catch((error) => {
       // Handle error
@@ -16,26 +34,33 @@ Object.entries(assets).forEach(([key, asset]) => {
 
 class setup {
   loadAssets(engine) {
-    assets["bunny"] = new assets["bunny"](
-      engine,
-      engine.createVector(10, 10),
-      engine.createVector(100, 100),
-      0.2
-    );
-  }
-
-  loadImages() {
-    Object.entries(assets).forEach(([key, asset]) => {
-      asset.loadImages();
+    Object.entries(assets).forEach(([assetName, assetObj]) => {
+      Object.entries(assetObj.states).forEach(([stateName, stateObj]) => {
+        stateObj.object = new stateObj.object(
+          engine,
+          engine.createVector(assetObj.posx, assetObj.posy),
+          engine.createVector(assetObj.height, assetObj.width),
+          assetObj.speed,
+          {
+            name: assetName,
+            state: stateName,
+            image: engine.loadImage(stateObj.image),
+            json: stateObj.data,
+          }
+        );
+        stateObj.object.buildAnimation();
+      });
     });
   }
 
   buildAnimations() {
-    Object.entries(assets).forEach(([key, asset]) => {
-      asset.buildAnimations();
+    Object.entries(assets).forEach(([assetName, assetObj]) => {
+      Object.entries(assetObj.states).forEach(([stateName, stateObj]) => {
+        stateObj.object.buildAnimation();
+      });
     });
   }
 }
 
-export const { loadAssets, loadImages, buildAnimations } = new setup();
+export const { loadAssets, buildAnimations } = new setup();
 export default assets;
