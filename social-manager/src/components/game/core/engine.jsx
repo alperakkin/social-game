@@ -16,7 +16,8 @@ function Engine(props) {
   const draw = (p5) => {
     p5.background(53, 150, 8);
 
-    assets.bunny.states.dancing.object.animate();
+    assets.bunny.states.dancing.object.move(p5.createVector(20, 10), 0, 0);
+    assets.bunny_2.states.dancing.object.move(p5.createVector(20, 250), 0, 0);
   };
 
   return (

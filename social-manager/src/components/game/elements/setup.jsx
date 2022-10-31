@@ -2,7 +2,7 @@ import assets from "../../../resource/assets/assets.json";
 let cls;
 
 Object.entries(assets).forEach(([key, asset]) => {
-  import("../elements/" + key)
+  import("../elements/" + key.split("_")[0])
     .then((ns) => {
       cls = ns.default;
 

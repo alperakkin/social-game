@@ -22,7 +22,8 @@ export default class Entity {
     this.sprite = s;
   }
 
-  animate() {
+  move(pos, dir, speed) {
+    this.sprite.pos.x += speed;
     this.sprite.animate();
   }
 }
